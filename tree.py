@@ -29,6 +29,39 @@ class TreeNode:
         else:
             self.val = val
 
+    # Check to see if the trees are the same.
+    def isSameTree(self, other_root):
+        def dfs(root):
+            if not root:
+                return [None]
+            return [root.val] + dfs(root.left) + dfs(root.right)
+
+        return dfs(self) == dfs(other_root)
+
+    def getLeafs(self):
+        leafs = set()
+
+        def dfs(root):
+            if not root:
+                return
+            dfs(root.left)
+            if not root.left and not root.right:
+                leafs.add(root.val)
+            dfs(root.right)
+
+        dfs(self)
+        return "The leafs of the tree are: ", leafs
+
+    def deleteNode(self, node):
+        def dfs(root):
+            if not root:
+                return
+            if root.val == node:
+                root.val = 0
+            return dfs(root.left), dfs(root.right)
+
+        return dfs(self)
+
     # This is to print the tree INORDER
     def InOrder(self):
         if self.left:
@@ -37,6 +70,7 @@ class TreeNode:
         if self.right:
             self.right.InOrder()
 
+    # PreOrder print
     def PreOrder(self):
         print(self.val)
         if self.left:
@@ -44,6 +78,7 @@ class TreeNode:
         if self.right:
             self.right.PreOrder()
 
+    # PostOrder print
     def PostOrder(self):
         if self.left:
             self.left.PostOrder()
