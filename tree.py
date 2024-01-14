@@ -52,27 +52,32 @@ class TreeNode:
         dfs(self)
         return "The leafs of the tree are: ", leafs
 
+    # Delete Node
     def deleteNode(self, node):
         def dfs(root):
             if not root:
                 return
             if root.val == node:
-                root.val = 0
+                root.val = None
             return dfs(root.left), dfs(root.right)
 
         return dfs(self)
+    
+    
 
     # This is to print the tree INORDER
     def InOrder(self):
         if self.left:
             self.left.InOrder()
-        print(self.val)
+        if self.val is not None:
+            print(self.val)
         if self.right:
             self.right.InOrder()
 
     # PreOrder print
     def PreOrder(self):
-        print(self.val)
+        if self.val is not None:
+            print(self.val)
         if self.left:
             self.left.PreOrder()
         if self.right:
@@ -84,4 +89,5 @@ class TreeNode:
             self.left.PostOrder()
         if self.right:
             self.right.PostOrder()
-        print(self.val)
+        if self.val is not None:
+            print(self.val)
