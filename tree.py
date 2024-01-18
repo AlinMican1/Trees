@@ -53,17 +53,49 @@ class TreeNode:
         return "The leafs of the tree are: ", leafs
 
     # Delete Node
-    def deleteNode(self, node):
-        def dfs(root):
-            if not root:
-                return
-            if root.val == node:
-                root.val = None
-            return dfs(root.left), dfs(root.right)
+    def deleteNode(self, root, key):
+        if not root:
+            return root
 
-        return dfs(self)
-    
-    
+        if key < root.val:
+            root.left = self.deleteNode(root.left, key)
+        elif key > root.val:
+            root.right = self.deleteNode(root.right, key)
+        else:
+            # Node to be deleted found
+
+            # Case 1: Node with only one child or no child
+            if not root.left:
+                return root.right
+            elif not root.right:
+                return root.left
+
+            # Case 2: Node with two children
+            # Find the inorder successor (smallest node in the right subtree)
+            successor = self.find_min(root.right)
+
+            # Copy the inorder successor's value to this node
+            root.val = successor.val
+
+            # Delete the inorder successor
+            root.right = self.deleteNode(root.right, successor.val)
+
+        return root
+
+    def find_min(self, node):
+        # Helper method to find the minimum value node in a BST
+        current = node
+        while current.left:
+            current = current.left
+        return current
+        # def dfs(root):
+        #     if not root:
+        #         return
+        #     if root.val == node:
+        #         root.val = None
+        #     return dfs(root.left), dfs(root.right)
+
+        # return dfs(self)
 
     # This is to print the tree INORDER
     def InOrder(self):

@@ -18,7 +18,7 @@ root1.insert(10)
 root1.insert(0)
 root1.insert(7)
 
-root.deleteNode(6)
+root.deleteNode(root, 6)
 root.InOrder()
 
 print(root.isSameTree(root1))
