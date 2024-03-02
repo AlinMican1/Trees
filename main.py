@@ -23,4 +23,6 @@ root.InOrder()
 
 print(root.isSameTree(root1))
 
-print(root.getLeafs())
+print(root.invertTree(root))
+
+
